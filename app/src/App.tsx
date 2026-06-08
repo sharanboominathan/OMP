@@ -6,10 +6,12 @@ import Header from './sections/Header'
 import Hero from './sections/Hero'
 import Story from './sections/Story'
 import MarqueeBand from './sections/MarqueeBand'
+import CouplesMarquee from './sections/CouplesMarquee'
 import StatsAndPress from './sections/StatsAndPress'
 import Services from './sections/Services'
 import Portfolio from './sections/Portfolio'
 import Testimonials from './sections/Testimonials'
+import InstagramCTA from './sections/InstagramCTA'
 import FAQ from './sections/FAQ'
 import Contact from './sections/Contact'
 import Footer from './sections/Footer'
@@ -77,12 +79,14 @@ function App() {
 
       <main>
         <Hero />
-        <Story />
         <MarqueeBand />
-        <StatsAndPress />
+        <Story />
+        <CouplesMarquee />
         <Services />
         <Portfolio />
+        <StatsAndPress />
         <Testimonials />
+        <InstagramCTA />
         <FAQ />
         <Contact />
       </main>
