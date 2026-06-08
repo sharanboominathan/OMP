@@ -7,7 +7,7 @@ export default defineConfig({
   base: './',
   plugins: [inspectAttr(), react()],
   build: {
-    outDir: '/sessions/optimistic-sleepy-wozniak/mnt/outputs/dist-wedding2',
+    outDir: 'dist',
     emptyOutDir: true,
   },
   server: { port: 3000 },
