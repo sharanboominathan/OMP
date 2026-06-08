@@ -6,13 +6,13 @@ import Lightbox from './Lightbox'
 gsap.registerPlugin(ScrollTrigger)
 
 const portfolioItems = [
-  { src: '/images/gallery-1.jpg', caption: 'Isabella & James -- Villa Antinori, Tuscany',      colSpan: 'col-span-12 md:col-span-7', aspect: 'aspect-[4/5]',   from: 'left'   },
-  { src: '/images/gallery-2.jpg', caption: 'Sophie & Luca -- Grand Hotel Tremezzo, Lake Como', colSpan: 'col-span-12 md:col-span-5', aspect: 'aspect-[3/4]',   from: 'right'  },
-  { src: '/images/gallery-3.jpg', caption: 'Amelia & Noah -- Chateau des Alpilles, Provence',  colSpan: 'col-span-12 md:col-span-5', aspect: 'aspect-[4/5]',   from: 'left'   },
-  { src: '/images/gallery-4.jpg', caption: 'Charlotte & Ethan -- The Plaza, New York',         colSpan: 'col-span-12 md:col-span-7', aspect: 'aspect-[16/10]', from: 'right'  },
-  { src: '/images/gallery-5.jpg', caption: 'Olivia & William -- Oia, Santorini',               colSpan: 'col-span-12',               aspect: 'aspect-[21/9]',  from: 'bottom' },
-  { src: '/images/gallery-6.jpg', caption: 'Evelyn & Thomas -- Palazzo Papadopoli, Venice',   colSpan: 'col-span-12 md:col-span-6', aspect: 'aspect-[3/4]',   from: 'left'   },
-  { src: '/images/gallery-7.jpg', caption: 'Clara & James -- Chateau de Varennes, Loire',     colSpan: 'col-span-12 md:col-span-6', aspect: 'aspect-[3/4]',   from: 'right'  },
+  { src: './images/gallery-1.jpg', caption: 'Isabella & James -- Villa Antinori, Tuscany',      colSpan: 'col-span-12 md:col-span-7', aspect: 'aspect-[4/5]',   from: 'left'   },
+  { src: './images/gallery-2.jpg', caption: 'Sophie & Luca -- Grand Hotel Tremezzo, Lake Como', colSpan: 'col-span-12 md:col-span-5', aspect: 'aspect-[3/4]',   from: 'right'  },
+  { src: './images/gallery-3.jpg', caption: 'Amelia & Noah -- Chateau des Alpilles, Provence',  colSpan: 'col-span-12 md:col-span-5', aspect: 'aspect-[4/5]',   from: 'left'   },
+  { src: './images/gallery-4.jpg', caption: 'Charlotte & Ethan -- The Plaza, New York',         colSpan: 'col-span-12 md:col-span-7', aspect: 'aspect-[16/10]', from: 'right'  },
+  { src: './images/gallery-5.jpg', caption: 'Olivia & William -- Oia, Santorini',               colSpan: 'col-span-12',               aspect: 'aspect-[21/9]',  from: 'bottom' },
+  { src: './images/gallery-6.jpg', caption: 'Evelyn & Thomas -- Palazzo Papadopoli, Venice',   colSpan: 'col-span-12 md:col-span-6', aspect: 'aspect-[3/4]',   from: 'left'   },
+  { src: './images/gallery-7.jpg', caption: 'Clara & James -- Chateau de Varennes, Loire',     colSpan: 'col-span-12 md:col-span-6', aspect: 'aspect-[3/4]',   from: 'right'  },
 ]
 
 export default function Portfolio() {

@@ -694,7 +694,7 @@ export default function Contact() {
           {/* Editorial image */}
           <div className="mt-10 overflow-hidden" style={{ borderRadius: '2px' }}>
             <img
-              src="/images/contact-editorial.jpg"
+              src="./images/contact-editorial.jpg"
               alt="Studio editorial"
               className="w-full object-cover"
               style={{ aspectRatio: '4/3', display: 'block', opacity: 0.6 }}

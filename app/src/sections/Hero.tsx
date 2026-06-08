@@ -71,10 +71,10 @@ void main() {
 `
 
 const GALLERY_IMAGES = [
-  '/images/gallery-1.jpg', '/images/gallery-2.jpg',
-  '/images/gallery-3.jpg', '/images/gallery-4.jpg',
-  '/images/gallery-5.jpg', '/images/gallery-6.jpg',
-  '/images/gallery-7.jpg', '/images/gallery-8.jpg',
+  './images/gallery-1.jpg', './images/gallery-2.jpg',
+  './images/gallery-3.jpg', './images/gallery-4.jpg',
+  './images/gallery-5.jpg', './images/gallery-6.jpg',
+  './images/gallery-7.jpg', './images/gallery-8.jpg',
 ]
 
 export default function Hero() {
@@ -328,7 +328,7 @@ export default function Hero() {
       {/* Full-bleed background image at reduced opacity */}
       <div className="absolute inset-0 z-0">
         <img
-          src="/images/gallery-5.jpg"
+          src="./images/gallery-5.jpg"
           alt=""
           aria-hidden="true"
           className="w-full h-full object-cover"
@@ -347,7 +347,7 @@ export default function Hero() {
       ) : (
         /* Mobile: static image grid */
         <div className="absolute inset-0 z-[1] grid grid-cols-2 gap-1 p-1 opacity-40" aria-hidden="true">
-          {['/images/gallery-1.jpg','/images/gallery-2.jpg','/images/gallery-3.jpg','/images/gallery-4.jpg'].map((src, i) => (
+          {['./images/gallery-1.jpg','./images/gallery-2.jpg','./images/gallery-3.jpg','./images/gallery-4.jpg'].map((src, i) => (
             <img key={i} src={src} alt="" className="w-full h-full object-cover" style={{ aspectRatio: '3/4' }} />
           ))}
         </div>

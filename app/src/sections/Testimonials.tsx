@@ -6,19 +6,19 @@ gsap.registerPlugin(ScrollTrigger)
 
 const testimonials = [
   {
-    img:    '/images/gallery-1.jpg',
+    img:    './images/gallery-1.jpg',
     quote:  'Working with Once More was the single best decision we made for our entire wedding. Every image is a painting. We cry every time we look at the album.',
     couple: 'Isabella & James',
     venue:  'Villa Antinori, Tuscany',
   },
   {
-    img:    '/images/gallery-3.jpg',
+    img:    './images/gallery-3.jpg',
     quote:  'The photographs captured emotions we had forgotten we felt. Every time we look at the album, we are transported back to that day completely. Truly extraordinary.',
     couple: 'Sophie & Luca',
     venue:  'Grand Hotel Tremezzo, Lake Como',
   },
   {
-    img:    '/images/gallery-4.jpg',
+    img:    './images/gallery-4.jpg',
     quote:  'We were hesitant about the investment. Now, three years later, our photographs are the most treasured thing we own. Worth every penny and so much more.',
     couple: 'Amelia & Noah',
     venue:  'Chateau des Alpilles, Provence',
@@ -180,7 +180,7 @@ export default function Testimonials() {
         {/* Bottom editorial image */}
         <div className="mt-16 overflow-hidden" style={{ borderRadius: '2px', position: 'relative' }}>
           <img
-            src="/images/testimonial-editorial.jpg"
+            src="./images/testimonial-editorial.jpg"
             alt="Wedding editorial"
             className="w-full object-cover"
             style={{ aspectRatio: '21/8', display: 'block', filter: 'saturate(0.85)' }}
