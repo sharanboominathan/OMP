@@ -1,5 +1,4 @@
 # Deploy Once More Photography to GitHub Pages
-# Triggers on push to main and on pull requests (build-only, no deploy)
 
 name: Deploy Static Site
 
@@ -22,15 +21,17 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
+  # ── Build ──────────────────────────────────────────────────────────────────
   build:
     name: Build
     runs-on: ubuntu-latest
+
     defaults:
       run:
         working-directory: ./app
 
     steps:
-      - name: Checkout repository
+      - name: Checkout
         uses: actions/checkout@v4
 
       - name: Set up Node.js 20
@@ -41,9 +42,11 @@ jobs:
           cache-dependency-path: app/package-lock.json
 
       - name: Install dependencies
-        run: npm ci
+        run: npm install
 
-      - name: Install Rollup Linux native binary
+      # node_modules installed on Windows ship without the Linux Rollup binary.
+      # This step adds it so Vite can bundle on the ubuntu runner.
+      - name: Add Rollup Linux binary
         run: npm install --platform=linux --arch=x64 @rollup/rollup-linux-x64-gnu --no-save
 
       - name: Type-check
@@ -59,15 +62,18 @@ jobs:
         with:
           path: ./app/dist
 
+  # ── Deploy (main only) ────────────────────────────────────────────────────
   deploy:
     name: Deploy to GitHub Pages
     needs: build
     runs-on: ubuntu-latest
     if: github.ref == 'refs/heads/main' && github.event_name != 'pull_request'
+
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
+
     steps:
-      - name: Deploy to GitHub Pages
+      - name: Deploy
         id: deployment
         uses: actions/deploy-pages@v4
