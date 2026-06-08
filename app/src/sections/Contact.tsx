@@ -280,7 +280,7 @@ export default function Contact() {
   }
 
   const canAdvanceStep1 = form.name.trim() && form.email.trim()
-  const canAdvanceStep2 = true // optional fields
+  const _canAdvanceStep2 = true // optional fields
   const canSubmit = form.vision.trim().length >= 20
 
   return (
