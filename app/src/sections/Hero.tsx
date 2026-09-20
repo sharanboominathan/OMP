@@ -327,9 +327,10 @@ export default function Hero() {
           const wrapper = document.createElement('span')
           wrapper.style.display = 'inline-block'
           wrapper.style.overflow = 'hidden'
+          if (char === ' ') wrapper.style.width = '0.32em'
 
           const inner = document.createElement('span')
-          inner.textContent = char === ' ' ? ' ' : char
+          inner.textContent = char === ' ' ? ' ' : char
           inner.style.display = 'inline-block'
           inner.style.filter = 'blur(8px)'
           inner.style.transform = 'translateY(120%)'
