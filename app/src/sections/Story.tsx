@@ -91,7 +91,7 @@ export default function Story() {
             >
               <div ref={imgRef}>
                 <img
-                  src="./images/story-tight.jpg"
+                  src="./images/balaji-janasri-04.jpg"
                   alt="Once More Photography artists at work"
                   className="w-full object-cover"
                   style={{ aspectRatio: '3/4', display: 'block' }}
@@ -115,7 +115,7 @@ export default function Story() {
             >
               <div ref={accentImgRef}>
                 <img
-                  src="./images/story-wide.jpg"
+                  src="./images/nishanth-preethi-02.jpg"
                   alt="Wedding detail moment"
                   className="w-full object-cover"
                   style={{ aspectRatio: '4/3', display: 'block' }}

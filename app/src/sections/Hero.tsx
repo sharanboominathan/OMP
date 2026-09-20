@@ -1,5 +1,5 @@
 import { useEffect, useRef } from 'react'
-import * as THREE from 'three'
+import type * as THREE from 'three'
 import { gsap } from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import FloatingPetals from './FloatingPetals'
@@ -71,10 +71,10 @@ void main() {
 `
 
 const GALLERY_IMAGES = [
-  './images/gallery-1.jpg', './images/gallery-2.jpg',
-  './images/gallery-3.jpg', './images/gallery-4.jpg',
-  './images/gallery-5.jpg', './images/gallery-6.jpg',
-  './images/gallery-7.jpg', './images/gallery-8.jpg',
+  './images/nishanth-preethi-04.jpg', './images/vignesh-elayabharathi-04.jpg',
+  './images/balasubramaniyan-tamilarasi-04.jpg', './images/balaji-janasri-01.jpg',
+  './images/nishanth-preethi-02.jpg', './images/vignesh-elayabharathi-05.jpg',
+  './images/balasubramaniyan-tamilarasi-01.jpg', './images/balaji-janasri-03.jpg',
 ]
 
 export default function Hero() {
@@ -96,7 +96,15 @@ export default function Hero() {
     if (!canvasContainerRef.current) return
     const container = canvasContainerRef.current
 
-    class GalleryApp {
+    let cancelled = false
+    let cleanup: (() => void) | null = null
+
+    // Dynamically import Three.js -- desktop-only, keeps it out of the
+    // initial bundle for mobile visitors who never render this canvas.
+    import('three').then((THREE) => {
+      if (cancelled) return
+
+      class GalleryApp {
       container: HTMLDivElement
       options: any
       scroll: { ease: number; current: number; target: number; last: number; delta: number }
@@ -293,28 +301,62 @@ export default function Hero() {
       }
     }
 
-    const app = new GalleryApp(container, { itemCount: 12, imageSize: [400, 500], gutter: 60, curvature: 2, scrollSpeed: 0.05, perspective: 1200 })
-    appRef.current = app
+      const app = new GalleryApp(container, { itemCount: 12, imageSize: [400, 500], gutter: 60, curvature: 2, scrollSpeed: 0.05, perspective: 1200 })
+      appRef.current = app
 
-    const st = ScrollTrigger.create({
-      trigger: container, start: 'top top', end: '+=15%', scrub: true,
-      onUpdate: (self) => {
-        const p = self.progress
-        app.camera.fov = 2 * Math.atan(app.viewport.height / 2 / (app.options.perspective * (1 - p * 0.5))) * (180 / Math.PI)
-        app.group.mesh!.scale.setScalar(1 - p * 0.1)
-        container.style.opacity = String(1 - p * 0.7)
-        app.camera.updateProjectionMatrix()
-      },
+      const st = ScrollTrigger.create({
+        trigger: container, start: 'top top', end: '+=15%', scrub: true,
+        onUpdate: (self) => {
+          const p = self.progress
+          app.camera.fov = 2 * Math.atan(app.viewport.height / 2 / (app.options.perspective * (1 - p * 0.5))) * (180 / Math.PI)
+          app.group.mesh!.scale.setScalar(1 - p * 0.1)
+          container.style.opacity = String(1 - p * 0.7)
+          app.camera.updateProjectionMatrix()
+        },
+      })
+
+      const tl = gsap.timeline({ delay: 0.6 })
+
+      // Blurred character-split headline reveal
+      const revealLine = (ref: React.RefObject<HTMLSpanElement | null>, delay: number) => {
+        if (!ref.current) return
+        const text = ref.current.textContent || ''
+        ref.current.innerHTML = ''
+
+        const chars = text.split('').map((char) => {
+          const wrapper = document.createElement('span')
+          wrapper.style.display = 'inline-block'
+          wrapper.style.overflow = 'hidden'
+
+          const inner = document.createElement('span')
+          inner.textContent = char === ' ' ? ' ' : char
+          inner.style.display = 'inline-block'
+          inner.style.filter = 'blur(8px)'
+          inner.style.transform = 'translateY(120%)'
+
+          wrapper.appendChild(inner)
+          ref.current!.appendChild(wrapper)
+          return inner
+        })
+
+        tl.to(chars, { y: 0, filter: 'blur(0px)', duration: 1.5, ease: 'power2.out', stagger: 0.04 }, delay)
+      }
+
+      revealLine(titleLine1Ref, 0)
+      revealLine(titleLine2Ref, 0.14)
+
+      tl.to(subtitleRef.current,    { opacity: 1, y: 0, duration: 1.0, ease: 'power2.out' }, 0.75)
+      tl.to(socialProofRef.current, { opacity: 1, y: 0, duration: 0.8, ease: 'power2.out' }, 1.15)
+      tl.to(ctaRef.current,         { opacity: 1, y: 0, duration: 0.8, ease: 'power2.out' }, 1.35)
+      tl.to(scrollIndicatorRef.current, { opacity: 1, duration: 0.6 }, 1.55)
+
+      cleanup = () => { app.dispose(); st.kill(); tl.kill() }
     })
 
-    const tl = gsap.timeline({ delay: 0.6 })
-    tl.to([titleLine1Ref.current, titleLine2Ref.current], { y: 0, duration: 1.3, stagger: 0.14, ease: 'power3.out' })
-    tl.to(subtitleRef.current,    { opacity: 1, y: 0, duration: 1.0, ease: 'power2.out' }, '-=0.85')
-    tl.to(socialProofRef.current, { opacity: 1, y: 0, duration: 0.8, ease: 'power2.out' }, '-=0.6')
-    tl.to(ctaRef.current,         { opacity: 1, y: 0, duration: 0.8, ease: 'power2.out' }, '-=0.5')
-    tl.to(scrollIndicatorRef.current, { opacity: 1, duration: 0.6 }, '-=0.4')
-
-    return () => { app.dispose(); st.kill(); tl.kill() }
+    return () => {
+      cancelled = true
+      if (cleanup) cleanup()
+    }
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isMobile])
 
@@ -328,7 +370,7 @@ export default function Hero() {
       {/* Full-bleed background image at reduced opacity */}
       <div className="absolute inset-0 z-0">
         <img
-          src="./images/gallery-5.jpg"
+          src="./images/nishanth-preethi-04.jpg"
           alt=""
           aria-hidden="true"
           className="w-full h-full object-cover"
@@ -347,7 +389,7 @@ export default function Hero() {
       ) : (
         /* Mobile: static image grid */
         <div className="absolute inset-0 z-[1] grid grid-cols-2 gap-1 p-1 opacity-40" aria-hidden="true">
-          {['./images/gallery-1.jpg','./images/gallery-2.jpg','./images/gallery-3.jpg','./images/gallery-4.jpg'].map((src, i) => (
+          {['./images/nishanth-preethi-04.jpg','./images/vignesh-elayabharathi-04.jpg','./images/balasubramaniyan-tamilarasi-04.jpg','./images/balaji-janasri-01.jpg'].map((src, i) => (
             <img key={i} src={src} alt="" className="w-full h-full object-cover" style={{ aspectRatio: '3/4' }} />
           ))}
         </div>
@@ -369,15 +411,11 @@ export default function Hero() {
       >
         {/* Main title */}
         <h1 className="text-display-xl text-center" style={{ color: 'rgba(253,250,244,0.96)' }}>
-          <span className="line-reveal-wrap">
-            <span ref={titleLine1Ref} className="line-reveal-inner" style={{ transform: 'translateY(110%)' }}>
-              Where Love
-            </span>
+          <span ref={titleLine1Ref} className="block" style={{ textShadow: '0 2px 40px rgba(0,0,0,0.35)' }}>
+            Where Love
           </span>
-          <span className="line-reveal-wrap">
-            <span ref={titleLine2Ref} className="line-reveal-inner" style={{ transform: 'translateY(110%)' }}>
-              Becomes Legacy
-            </span>
+          <span ref={titleLine2Ref} className="block" style={{ textShadow: '0 2px 40px rgba(0,0,0,0.35)' }}>
+            Becomes Legacy
           </span>
         </h1>
 
@@ -396,7 +434,7 @@ export default function Hero() {
           className="text-label text-center mt-5 opacity-0 translate-y-4"
           style={{ color: 'rgba(253,250,244,0.38)', fontStyle: 'normal' }}
         >
-          Trusted by 400+ couples across Europe &amp; North America
+          Trusted by 400+ couples across Tamil Nadu &amp; beyond
         </p>
 
         {/* CTA */}

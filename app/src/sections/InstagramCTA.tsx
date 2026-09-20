@@ -6,12 +6,12 @@ import { Instagram } from 'lucide-react'
 gsap.registerPlugin(ScrollTrigger)
 
 const GRID_IMAGES = [
-  './images/gallery-1.jpg',
-  './images/gallery-3.jpg',
-  './images/gallery-5.jpg',
-  './images/gallery-2.jpg',
-  './images/gallery-6.jpg',
-  './images/gallery-8.jpg',
+  './images/vignesh-elayabharathi-01.jpg',
+  './images/balasubramaniyan-tamilarasi-04.jpg',
+  './images/nishanth-preethi-04.jpg',
+  './images/balaji-janasri-02.jpg',
+  './images/vignesh-elayabharathi-05.jpg',
+  './images/nishanth-preethi-01.jpg',
 ]
 
 export default function InstagramCTA() {

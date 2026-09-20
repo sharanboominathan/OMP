@@ -301,8 +301,7 @@ export default function Contact() {
           className="text-body max-w-[520px] mx-auto mt-5 opacity-0"
           style={{ color: 'rgba(253,250,244,0.46)', lineHeight: '1.85', fontStyle: 'italic' }}
         >
-          We accept only 12 weddings each year. 2025 is fully booked.
-          2026 has limited availability. Complete the enquiry form and we will be in touch within 24 hours.
+          Tell us about your day and we will get back to you shortly. Complete the enquiry form and we will be in touch within 24 hours.
         </p>
       </div>
 
@@ -398,7 +397,7 @@ export default function Contact() {
                       type="tel"
                       value={form.phone}
                       onChange={set('phone')}
-                      placeholder="+1 (212) 000-0000"
+                      placeholder="+91 90000 00000"
                       hint="Optional — for our introductory call if you prefer to speak"
                       optional
                     />
@@ -487,11 +486,7 @@ export default function Contact() {
                       value={form.budget}
                       onChange={set('budget')}
                       options={[
-                        { value: '5-8k',   label: '$5,000 to $8,000' },
-                        { value: '8-12k',  label: '$8,000 to $12,000' },
-                        { value: '12-18k', label: '$12,000 to $18,000' },
-                        { value: '18k+',   label: '$18,000+' },
-                        { value: 'open',   label: 'Open to discussion' },
+                        { value: 'open',   label: 'Contact us for pricing' },
                       ]}
                     />
 
@@ -655,9 +650,9 @@ export default function Contact() {
             {/* Contact details */}
             <div className="flex flex-col gap-5">
               {[
-                { icon: MapPin, text: '127 West 24th Street, Suite 4B\nNew York, NY 10011', href: null },
-                { icon: Mail,   text: 'hello@oncemore.studio', href: 'mailto:hello@oncemore.studio' },
-                { icon: Phone,  text: '+1 (212) 555-0147', href: 'tel:+12125550147' },
+                { icon: MapPin, text: 'Anna Nagar, Chennai\nTamil Nadu, India', href: null },
+                { icon: Mail,   text: 'oncemorephotography@gmail.com', href: 'mailto:oncemorephotography@gmail.com' },
+                { icon: Phone,  text: '+91 96770 06647', href: 'tel:+919677006647' },
               ].map(({ icon: Icon, text, href }, i) => (
                 <div key={i} className="flex gap-3 items-start">
                   <Icon size={14} strokeWidth={1.4} style={{ color: 'var(--gold)', marginTop: '3px', flexShrink: 0 }} />
@@ -676,10 +671,15 @@ export default function Contact() {
             <div className="h-px" style={{ background: 'rgba(253,250,244,0.07)' }} />
 
             <div className="flex gap-5">
-              {[Instagram, Facebook].map((Icon, i) => (
+              {[
+                { Icon: Instagram, href: 'https://www.instagram.com/oncemore.photography/' },
+                { Icon: Facebook,  href: 'https://www.facebook.com/Oncemorephotography/'  },
+              ].map(({ Icon, href }, i) => (
                 <a
                   key={i}
-                  href="#"
+                  href={href}
+                  target="_blank"
+                  rel="noopener noreferrer"
                   className="flex items-center gap-2 text-body-sm transition-colors"
                   style={{ color: 'rgba(253,250,244,0.3)', textDecoration: 'none' }}
                   onMouseEnter={(e) => (e.currentTarget.style.color = 'var(--gold)')}
@@ -694,7 +694,7 @@ export default function Contact() {
           {/* Editorial image */}
           <div className="mt-10 overflow-hidden" style={{ borderRadius: '2px' }}>
             <img
-              src="./images/contact-editorial.jpg"
+              src="./images/balasubramaniyan-tamilarasi-05.jpg"
               alt="Studio editorial"
               className="w-full object-cover"
               style={{ aspectRatio: '4/3', display: 'block', opacity: 0.6 }}

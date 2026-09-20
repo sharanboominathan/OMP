@@ -11,8 +11,8 @@ const FAQS = [
     a: 'We accept only 12 weddings per year, and our calendar typically fills 14 to 20 months in advance. We recommend reaching out as soon as you have a date in mind. A 30% deposit secures your date immediately.',
   },
   {
-    q: 'Do you travel internationally?',
-    a: 'Absolutely. Approximately 60% of our weddings take place outside the United States. We have photographed weddings across Italy, France, Greece, Indonesia, the UK, and beyond. Travel fees vary by destination and are quoted transparently.',
+    q: 'Do you travel for weddings outside Chennai?',
+    a: 'Yes. We regularly travel across Tamil Nadu and the rest of India for weddings, and we are happy to travel internationally for destination weddings as well. Travel fees vary by location and are quoted transparently before booking.',
   },
   {
     q: 'What is your editing style?',
@@ -28,7 +28,7 @@ const FAQS = [
   },
   {
     q: 'Do you offer albums and prints?',
-    a: 'Yes. We design bespoke lay-flat albums printed on archival paper with linen covers. Albums start at $2,800. All prints are produced at fine-art labs and delivered mounted and ready to hang.',
+    a: 'Yes. We design bespoke lay-flat albums and offer fine-art prints. Contact us for current album and print pricing — packages are tailored to your requirements.',
   },
   {
     q: 'What if our venue has low light?',

@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react'
 import { gsap } from 'gsap'
 import { Phone } from 'lucide-react'
+import { Link, useLocation, useNavigate } from 'react-router'
 
 interface HeaderProps {
   navOpen: boolean
@@ -8,14 +9,17 @@ interface HeaderProps {
 }
 
 const NAV_LINKS = [
-  { label: 'Portfolio', id: 'portfolio' },
-  { label: 'Services',  id: 'services'  },
-  { label: 'About',     id: 'story'     },
-  { label: 'Contact',   id: 'contact'   },
+  { label: 'Portfolio', id: 'portfolio', route: '/'          },
+  { label: 'Services',  id: 'services',  route: '/services'  },
+  { label: 'About',     id: 'story',     route: '/about'     },
+  { label: 'Contact',   id: 'contact',   route: '/contact'   },
 ]
 
 export default function Header({ navOpen, setNavOpen }: HeaderProps) {
   const [scrolled, setScrolled] = useState(false)
+  const location = useLocation()
+  const navigate = useNavigate()
+  const isHome = location.pathname === '/'
 
   useEffect(() => {
     const handleScroll = () => setScrolled(window.scrollY > window.innerHeight * 0.8)
@@ -35,6 +39,16 @@ export default function Header({ navOpen, setNavOpen }: HeaderProps) {
     setTimeout(() => document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' }), 320)
   }
 
+  const handleNavClick = (id: string, route: string) => (e: React.MouseEvent) => {
+    if (isHome) {
+      e.preventDefault()
+      scrollToSection(id)
+    } else {
+      setNavOpen(false)
+      navigate(route)
+    }
+  }
+
   const linkColor      = scrolled ? 'var(--charcoal)' : 'rgba(253,250,244,0.82)'
   const linkHoverColor = scrolled ? 'var(--gold)' : 'rgba(253,250,244,1)'
   const logoColor      = scrolled ? 'var(--charcoal)' : 'rgba(253,250,244,0.95)'
@@ -47,8 +61,8 @@ export default function Header({ navOpen, setNavOpen }: HeaderProps) {
         <div className="flex items-center justify-between px-8 py-5 max-w-[1400px] mx-auto">
 
           {/* Wordmark + tagline */}
-          <a href="#" className="flex flex-col items-start gap-[3px]" style={{ textDecoration: 'none' }}
-            onClick={(e) => { e.preventDefault(); window.scrollTo({ top: 0, behavior: 'smooth' }) }}>
+          <Link to="/" className="flex flex-col items-start gap-[3px]" style={{ textDecoration: 'none' }}
+            onClick={(e) => { if (isHome) { e.preventDefault(); window.scrollTo({ top: 0, behavior: 'smooth' }) } }}>
             <span className="font-display text-heading-s"
               style={{ letterSpacing: '0.06em', color: logoColor, transition: 'color 0.4s', lineHeight: 1 }}>
               Once More
@@ -57,42 +71,41 @@ export default function Header({ navOpen, setNavOpen }: HeaderProps) {
               style={{ color: subColor, transition: 'color 0.4s', fontStyle: 'italic', fontSize: '0.58rem', letterSpacing: '0.16em' }}>
               Photography
             </span>
-          </a>
+          </Link>
 
           {/* Desktop nav */}
           <nav className="hidden md:flex items-center gap-10">
-            {NAV_LINKS.map(({ label, id }) => (
-              <a key={id} href={`#${id}`}
-                onClick={(e) => { e.preventDefault(); scrollToSection(id) }}
+            {NAV_LINKS.map(({ label, id, route }) => (
+              <Link key={id} to={route} onClick={handleNavClick(id, route)}
                 className="text-label transition-colors duration-300"
                 style={{ color: linkColor, textDecoration: 'none', fontStyle: 'normal', letterSpacing: '0.1em', transition: 'color 0.3s' }}
                 onMouseEnter={(e) => (e.currentTarget.style.color = linkHoverColor)}
                 onMouseLeave={(e) => (e.currentTarget.style.color = linkColor)}>
                 {label}
-              </a>
+              </Link>
             ))}
           </nav>
 
           {/* Right: phone + Book Now */}
           <div className="hidden md:flex items-center gap-5">
-            <a href="tel:+12125550147"
+            <a href="tel:+919677006647"
               className="flex items-center gap-2 transition-colors duration-300"
               style={{ color: phoneColor, textDecoration: 'none' }}
               onMouseEnter={(e) => (e.currentTarget.style.color = scrolled ? 'var(--gold)' : 'rgba(253,250,244,0.9)')}
               onMouseLeave={(e) => (e.currentTarget.style.color = phoneColor)}>
               <Phone size={13} strokeWidth={1.5} />
               <span className="text-label" style={{ fontStyle: 'normal', letterSpacing: '0.06em', fontSize: '0.7rem' }}>
-                +1 212 555 0147
+                +91 96770 06647
               </span>
             </a>
-            <a href="#contact"
-              onClick={(e) => { e.preventDefault(); scrollToSection('contact') }}
+            <Link to="/contact"
+              onClick={handleNavClick('contact', '/contact')}
               className="text-label px-6 py-3 transition-all duration-300"
               style={{ background: 'var(--gold)', color: 'var(--ivory)', textDecoration: 'none', fontStyle: 'normal', letterSpacing: '0.12em' }}
               onMouseEnter={(e) => { e.currentTarget.style.background = 'var(--deep-gold)' }}
               onMouseLeave={(e) => { e.currentTarget.style.background = 'var(--gold)' }}>
               Book Now
-            </a>
+            </Link>
           </div>
 
           {/* Mobile hamburger */}
@@ -119,26 +132,26 @@ export default function Header({ navOpen, setNavOpen }: HeaderProps) {
               <line x1="20" y1="4" x2="4" y2="20" />
             </svg>
           </button>
-          <a href="tel:+12125550147" className="flex items-center gap-2 mb-4"
+          <a href="tel:+919677006647" className="flex items-center gap-2 mb-4"
             style={{ color: 'rgba(28,22,16,0.45)', textDecoration: 'none' }}>
             <Phone size={13} strokeWidth={1.5} />
-            <span className="text-label" style={{ fontStyle: 'normal', fontSize: '0.72rem' }}>+1 212 555 0147</span>
+            <span className="text-label" style={{ fontStyle: 'normal', fontSize: '0.72rem' }}>+91 96770 06647</span>
           </a>
           {[
-            { label: 'Home',      id: 'hero'      },
-            { label: 'Portfolio', id: 'portfolio' },
-            { label: 'Services',  id: 'services'  },
-            { label: 'About',     id: 'story'     },
-            { label: 'Contact',   id: 'contact'   },
-          ].map(({ label, id }) => (
-            <a key={id} href={`#${id}`} onClick={(e) => { e.preventDefault(); scrollToSection(id) }}>{label}</a>
+            { label: 'Home',      id: 'hero',      route: '/'          },
+            { label: 'Portfolio', id: 'portfolio', route: '/'          },
+            { label: 'Services',  id: 'services',  route: '/services'  },
+            { label: 'About',     id: 'story',     route: '/about'     },
+            { label: 'Contact',   id: 'contact',   route: '/contact'   },
+          ].map(({ label, id, route }) => (
+            <Link key={id} to={route} onClick={handleNavClick(id, route)}>{label}</Link>
           ))}
-          <a href="#contact"
-            onClick={(e) => { e.preventDefault(); scrollToSection('contact') }}
+          <Link to="/contact"
+            onClick={handleNavClick('contact', '/contact')}
             className="mt-4 text-label px-8 py-4"
             style={{ background: 'var(--gold)', color: 'var(--ivory)', textDecoration: 'none', fontStyle: 'normal', letterSpacing: '0.12em' }}>
             Book Now
-          </a>
+          </Link>
         </div>
       )}
     </>

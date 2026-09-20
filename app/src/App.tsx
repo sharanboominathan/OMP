@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from 'react'
+import { Routes, Route } from 'react-router'
 import Lenis from 'lenis'
 import { gsap } from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
@@ -16,8 +17,34 @@ import FAQ from './sections/FAQ'
 import Contact from './sections/Contact'
 import Footer from './sections/Footer'
 import CustomCursor from './sections/CustomCursor'
+import About from './pages/About'
+import ServicesPage from './pages/ServicesPage'
+import FAQPage from './pages/FAQPage'
+import ContactPage from './pages/ContactPage'
 
 gsap.registerPlugin(ScrollTrigger)
+
+function Home({ navOpen, setNavOpen }: { navOpen: boolean; setNavOpen: (open: boolean) => void }) {
+  return (
+    <>
+      <Header navOpen={navOpen} setNavOpen={setNavOpen} />
+      <main>
+        <Hero />
+        <MarqueeBand />
+        <Story />
+        <CouplesMarquee />
+        <Services />
+        <Portfolio />
+        <StatsAndPress />
+        <Testimonials />
+        <InstagramCTA />
+        <FAQ />
+        <Contact />
+      </main>
+      <Footer />
+    </>
+  )
+}
 
 function App() {
   const [navOpen, setNavOpen] = useState(false)
@@ -75,23 +102,14 @@ function App() {
       )}
 
       <CustomCursor />
-      <Header navOpen={navOpen} setNavOpen={setNavOpen} />
 
-      <main>
-        <Hero />
-        <MarqueeBand />
-        <Story />
-        <CouplesMarquee />
-        <Services />
-        <Portfolio />
-        <StatsAndPress />
-        <Testimonials />
-        <InstagramCTA />
-        <FAQ />
-        <Contact />
-      </main>
-
-      <Footer />
+      <Routes>
+        <Route path="/" element={<Home navOpen={navOpen} setNavOpen={setNavOpen} />} />
+        <Route path="/about" element={<About navOpen={navOpen} setNavOpen={setNavOpen} />} />
+        <Route path="/services" element={<ServicesPage navOpen={navOpen} setNavOpen={setNavOpen} />} />
+        <Route path="/faq" element={<FAQPage navOpen={navOpen} setNavOpen={setNavOpen} />} />
+        <Route path="/contact" element={<ContactPage navOpen={navOpen} setNavOpen={setNavOpen} />} />
+      </Routes>
     </div>
   )
 }
